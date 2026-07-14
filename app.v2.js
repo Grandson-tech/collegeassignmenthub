@@ -94,20 +94,23 @@ contactForm.addEventListener('submit', (e) => {
 const observerOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.1
+    threshold: 0.18
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in');
+            if (entry.target.classList.contains('animate-on-scroll')) {
+                entry.target.classList.add('in-view');
+            }
             observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Observe elements for animation
-document.querySelectorAll('.service-card, .testimonial-card, .section-title').forEach(el => {
+document.querySelectorAll('.animate-on-scroll, .service-card, .testimonial-card, .section-title').forEach(el => {
     observer.observe(el);
 });
 
